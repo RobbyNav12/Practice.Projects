@@ -1,0 +1,139 @@
+alert("Welcome to HangMan");
+
+// const key = prompt('Player 1: What is the secret word?');
+// below recursion to only accept letters, no spaces or special character; different response if incorrect response on first attempt;
+let key;
+const listOfLetters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+function getKey(count = 0) {
+  let anyKey;
+  if (count ===0) {anyKey = prompt('Player 1: What is the secret word?\n Word must contain only letters and no phrases.')};
+  if (count > 0) {anyKey = prompt('Incorrect entry.  Try again.\n Use a single word, it must contain only letters and no special characters.')};
+  key = anyKey.toUpperCase();
+  for (let i = 0; i < key.length; i++){
+    if (!listOfLetters.includes(key[i])){
+      getKey(count +1);
+    }
+  }
+  return;
+}
+getKey();
+
+
+
+//console.log(key)
+//console.log(key.length)
+
+
+const result = [];
+function resultBuilder(str) {
+  for (let i = 0; i < str.length; i++) {
+    result.push("_")
+  }
+}
+resultBuilder(key)
+console.log(result);
+const guessedLetters = [];
+
+let correctAnswer = false;
+
+function mutateArray(letter) {
+  for(let i = 0; i < key.length; i++){
+    if(key[i].toUpperCase() === letter.toUpperCase()){
+      correctAnswer = true;
+      result.splice(i, 1, letter.toUpperCase())
+    }
+//    console.log(`correctAnswer: ${correctAnswer}`)
+//    console.log(`Key ${key[i]}, Letter: ${letter}`)
+//    console.log(`Result = ${result}`)
+    if (!guessedLetters.includes(letter.toUpperCase())) {
+      guessedLetters.push(letter.toUpperCase());
+    }
+
+    }
+  }
+
+
+// resultBuilder(key);
+
+
+function hangmanGame(wrongGuesses = 0){
+  console.log(["wrongGuesses", wrongGuesses])
+  //open a recursion
+  //make a guess; prompt
+  let playerGuess; 
+  function checkGuess(response = 0, letter) {
+    let inputGuess;
+    if (response === 0) {inputGuess = prompt('Player 2: What is your guess?')};
+    if (response === 1) {inputGuess = prompt('Please only enter a single letter.  Try Again.')};
+    if (response === 2) {inputGuess = prompt('You have already guessed "' + letter + '".   Try Again.')};
+    playerGuess = inputGuess.toUpperCase();
+    if (!listOfLetters.includes(playerGuess)){
+      return checkGuess(1);
+    };
+    if (guessedLetters.includes(playerGuess)){
+      return checkGuess(2, playerGuess);
+    }
+    return
+  };
+  checkGuess();
+  //check guess; call robs function, args guess
+  // let correctAnswer = false;
+  mutateArray(playerGuess);
+
+  //return result: if statements for the win etc.
+ if (!result.includes("_")) {
+   return alert("Congratulations! You've solved the secret word and won the game!")
+  }
+
+  if (correctAnswer === true){
+    if (wrongGuesses == 0) {
+      alert("______\n|          |              Correct Guess.\n|                         You haven't missed yet!!!\n|                         Select OK to guess again.\n|\n|                         Guessed: " + 
+      guessedLetters + "\n|\n|\n|_________       Status: " + result.join(' '));
+    }if (wrongGuesses == 1) {
+        alert("______\n|          |              Correct Guess.\n|       ****\n|   *( -   - )*       Select OK to guess again.\n|        ---\n|                         Guessed: " + 
+                guessedLetters + "\n|\n|\n|_________       Status: " + result.join(' '));
+    } if (wrongGuesses == 2) {
+        alert("______\n|          |              Correct Guess.\n|       ****\n|   *( -   - )*       Select OK to guess again.\n|        ---\n|          |              Guessed: " + 
+          guessedLetters + "\n|          |\n|\n|_________       Status: " + result.join(' '));
+    } if (wrongGuesses == 3) {
+        alert("______\n|          |              Correct Guess.\n|       ****\n|   *( -   - )*       Select OK to guess again.\n|        ---\n|        \\ |              Guessed: " + 
+          guessedLetters + "\n|          |\n|\n|_________       Status: " + result.join(' '));
+    } if (wrongGuesses == 4) {
+        alert("______\n|          |              Correct Guess.\n|       ****\n|   *( -   - )*       Select OK to guess again.\n|        ---\n|        \\ | /            Guessed: " + 
+          guessedLetters + "\n|          |\n|\n|_________       Status: " + result.join(' '));
+    } if (wrongGuesses == 5) {
+        alert("______\n|          |              Correct Guess.\n|       ****           Last Chance!\n|   *( -   - )*       Select OK to guess again.\n|        ---\n|        \\ | /            Guessed: " + 
+          guessedLetters + "\n|          |\n|         /  \n|_________       Status: " + result.join(' '));
+    } 
+    };
+
+  
+  if (correctAnswer === false) {
+    // alert("Sorry! That letter isn't a part of the secret word!")
+    wrongGuesses ++;
+    if (wrongGuesses == 1) {
+      alert("______\n|          |              Incorrect Guess.\n|       ****           Your head's in the noose!\n|   *( -   - )*       Select OK to guess again.\n|        ---\n|                         Guessed: " + 
+              guessedLetters + "\n|\n|\n|_________       Status: " + result.join(' '));
+  } if (wrongGuesses == 2) {
+      alert("______\n|          |              Incorrect Guess.\n|       ****           Your body has been added.\n|   *( -   - )*       Select OK to guess again.\n|        ---\n|          |              Guessed: " + 
+        guessedLetters + "\n|          |\n|\n|_________       Status: " + result.join(' '));
+  } if (wrongGuesses == 3) {
+      alert("______\n|          |              Incorrect Guess.\n|       ****           Your right arm has been added.\n|   *( -   - )*       Select OK to guess again.\n|        ---\n|        \\ |              Guessed: " + 
+        guessedLetters + "\n|          |\n|\n|_________       Status: " + result.join(' '));
+  } if (wrongGuesses == 4) {
+      alert("______\n|          |              Incorrect Guess.\n|       ****           Your left arm has been added.\n|   *( -   - )*       Select OK to guess again.\n|        ---\n|        \\ | /            Guessed: " + 
+        guessedLetters + "\n|          |\n|\n|_________       Status: " + result.join(' '));
+  } if (wrongGuesses == 5) {
+      alert("______\n|          |              Incorrect Guess.\n|       ****           Your right leg has been added.  Last Chance!\n|   *( -   - )*       Select OK to guess again.\n|        ---\n|        \\ | /            Guessed: " + 
+        guessedLetters + "\n|          |\n|         /  \n|_________       Status: " + result.join(' '));
+  } if (wrongGuesses == 6) {
+      alert("______\n|          |              Incorrect Guess.\n|       ****           You Lose!!!\n|   *( -   - )*\n|        ---\n|        \\ | /            Guessed: " + 
+        guessedLetters + "\n|          |\n|         / \\\n|_________       Status: " + result.join(' ') + "     Answer: " + key);
+      return;
+  }}
+//return recursion
+  correctAnswer = false;
+ return hangmanGame(wrongGuesses);
+}
+
+hangmanGame();

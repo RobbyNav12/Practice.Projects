@@ -1,0 +1,157 @@
+// STEP 1: Initialization and Player Interaction
+
+alert ('Welcome to the Game!')
+alert ('Gates Opening : Area 51.5.')
+
+// Initial Prompts 
+let play = confirm ("Would you like to enter?")
+  console.log('play', 'start'); 
+
+// Game Start
+if (play){
+alert("WELCOME!");
+} else {
+  alert("The gates are locked, no choice but to proceed forward.");
+};
+
+const player1 = prompt ('What is your name?');
+
+const playerName = alert(`Hello, ${player1} !`); 
+
+
+
+
+// STEP 2: Opening a Chest and Obtaining Items
+
+const chest1 = [
+{option1: 'pistol and scope'},
+{option2: 'dagger and flashlight'}
+]; 
+
+let items = [];
+//alert function needs double quotation 
+alert ("There is a chest on the path...");
+let openChest1 = confirm ("I hope there is something useful in here.....")
+
+if (openChest1 === true){
+
+  items.push(Object.keys(chest1));
+  console.log(items)
+} 
+alert("You have obtained a pistol and flashlight")
+
+// else option to "pick up a rock" 
+
+// STEP 3: Interaction with Aliens 
+//Part I: Beginning of Story
+
+alert ("A group of aliens are approaching");
+
+let visit = confirm ('Would you like to speak to the aliens?')
+ console.log('yes', 'no')
+
+if (visit) {
+  alert ("*They stare at you .... you shutter in awe of their mighty stature*")
+}
+else {
+  alert ("Too bad, they want to talk to you")
+}; 
+
+
+aliens = [
+  {alienName1: 'Chewbacca', speciesName: 'Wookie'},
+  {alienName2: 'Groot', speciesName: 'Groot'}, 
+  {alienName3: 'Bilbo', speciesName: 'Hobbit'}, 
+  {alienName4: 'Elon', speciesName: 'Human'},
+];
+
+// Fixed the syntax and logical errors in the alien encounter function
+for (let i = 0; i < aliens.length; i++) {
+  if (aliens[i].alienName1 === 'Chewbacca') {
+    alert ("Chewbacca just wanted to tell you RRRWWWGGG");
+  }
+    else if (aliens[i].alienName2 === 'Groot') {
+      alert("Groot lets you know.. I am Groot")
+    } 
+    else if (aliens[i].alienName3 === 'Bilbo') {
+      alert("Bilbo asks, have you seen a small gold-ish ring around here?")
+    } 
+    else if (aliens[i].alienName4 === 'Elon') {
+      alert ("Elon: Saw your tesla out front, sweet ride, here take this key")
+    }
+};
+
+// STEP 4: Exploring the Environment and Decision Making 
+
+//Part II The Road to Worse(Lisa)
+alert ("You stagger through the halls")
+alert ("A chest lays on your path")
+const weapons = {
+  grenade:1,
+  ammo:2,
+  rifle: 1
+};
+let totalWeapons = 0; 
+for (const prop in weapons){
+  if (typeof weapons[prop] === 'number'){
+    totalWeapons += weapons[prop];
+  }
+}
+console.log(totalWeapons);
+
+//always log before alert function. Dev needs to see the outcome before alerting a user. 
+console.log(`You have obtained ${totalWeapons}`);
+alert(`You have obtained ${totalWeapons} weapons:  ${Object.entries(weapons)}`); 
+// WE ARE GETTING CLOSE 
+
+alert("You continue down the hall");
+alert("A narrow passage is spotted");
+
+
+const hallways = confirm ("Would you like stay the course?")
+  console.log('straight', 'detour')
+
+if (hallways){
+alert("You continue down the dark halls")
+} else {
+  alert("You don't fit...")
+}
+alert("A LOUD BANG IS HEARD AROUND THE CORNER");
+
+
+// STEP 5: Critical Event 
+//Part III Arrinvg at Worse
+
+alert("Let's get out of here" + playerName + "!"); 
+alert ("There must be another way out!");
+
+function openDoor (){
+  // using prompt to get user input
+  const userPrompt = prompt('There is a door! Enter 1 or 2');
+  // using unary plus to convert user input to number
+  const choice = +userPrompt; 
+// the only other choice is the first door - no direction to leav it 
+  if(choice === 1){
+    alert(`You attempt to pick the lock! Success! ${playerName}! `); 
+} else if (choice === 2){
+    prompt("You're too weak to open this door.");
+} else {
+    alert('Oh no!! There are no more path for you to survive. YOU ARE DEAD') 
+}
+}
+  // we need to call the function to get user's choice and invoke it
+  openDoor();
+
+// STEP 6: Conclusion (ENDING)
+
+alert('SOMETHING LARGE COMES YOUR WAY! ')
+
+const alienBoss= confirm("He looks hungry....");
+alert ("I think we should run away..");
+const fight = confirm ('Stay');
+console.log('stay and fight:', fight);
+if (totalWeapons > 3 && fight){
+  alert('The BOSS HAS BEEN DEFEATED ')
+};
+
+alert("The EXIT AWAITS, you have survived! ");
